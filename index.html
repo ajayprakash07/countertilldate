@@ -1,60 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days Left Countdown</title>
-<style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  .countdown {
-    background: #ffffffcc;
-    border-radius: 15px;
-    padding: 30px 50px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    text-align: center;
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin: 10px 0;
-  }
-  .fun-text {
-    font-size: 1.3rem;
-    color: #e74c3c;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghar Aane Ka Time</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .line {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .highlight-abhinav {
+            color: #FF6B6B; /* A warm red */
+            font-weight: bold;
+        }
+
+        .highlight-saloni {
+            color: #4ECDC4; /* A soothing teal */
+            font-weight: bold;
+        }
+
+        .highlight-ayush {
+            color: #FFE66D; /* A cheerful yellow */
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        #abhinav-days, #saloni-days {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="countdown" id="abhinav">Abhinav ko ghar aane mai kitna time hai? - <span id="abhinavDays">19</span> din</div>
-  <div class="countdown" id="saloni">Saloni ko ghar aane mai kitna time hai? - <span id="saloniDays">38</span> din</div>
-  <div class="fun-text" id="ayush">Ayush ko ghar aane mai kitna time hai? - LOL!,,,THE TIME SHOULD UPDATE EACH PASSING DAY</div>
+    <div class="container">
+        <div class="line"><span class="highlight-abhinav">Abhinav</span> ko ghar aane mai kitna time hai? - <span id="abhinav-days"></span></div>
+        <div class="line"><span class="highlight-saloni">Saloni</span> ko ghar aane mai kitna time hai? - <span id="saloni-days"></span></div>
+        <div class="line"><span class="highlight-ayush">Ayush</span> ko ghar aane mai kitna time hai? - LOL!</div>
+    </div>
 
-  <script>
-    function updateDays() {
-      const today = new Date();
-      const abhinavDate = new Date(2025, 5, 6); // June 6, 2025 (month is 0-indexed)
-      const saloniDate = new Date(2025, 5, 25); // June 25, 2025
+    <script>
+        function updateDays() {
+            const now = new Date();
+            const abhinavArrival = new Date(2025, 5, 6); // Month is 0-indexed (0 for January, 5 for June)
+            const saloniArrival = new Date(2025, 5, 25);
 
-      const abhinavDiff = Math.ceil((abhinavDate - today) / (1000 * 60 * 60 * 24));
-      const saloniDiff = Math.ceil((saloniDate - today) / (1000 * 60 * 60 * 24));
+            const timeDiffAbhinav = abhinavArrival.getTime() - now.getTime();
+            const daysLeftAbhinav = Math.ceil(timeDiffAbhinav / (1000 * 3600 * 24));
 
-      document.getElementById('abhinavDays').textContent = abhinavDiff > 0 ? abhinavDiff : 0;
-      document.getElementById('saloniDays').textContent = saloniDiff > 0 ? saloniDiff : 0;
-    }
+            const timeDiffSaloni = saloniArrival.getTime() - now.getTime();
+            const daysLeftSaloni = Math.ceil(timeDiffSaloni / (1000 * 3600 * 24));
 
-    // Update days every hour
-    setInterval(updateDays, 3600000);
-    updateDays();
-  </script>
+            document.getElementById("abhinav-days").textContent = daysLeftAbhinav >= 0 ? daysLeftAbhinav + " din" : "Aa gaya!";
+            document.getElementById("saloni-days").textContent = daysLeftSaloni >= 0 ? daysLeftSaloni + " din" : "Aa gayi!";
+        }
+
+        // Update the days every second
+        setInterval(updateDays, 1000);
+
+        // Initial call to set the values immediately
+        updateDays();
+    </script>
 </body>
 </html>
